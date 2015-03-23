@@ -1,0 +1,22 @@
+inport 'input', :split, 'input'
+outport 'output', :reduce, 'output'
+
+atom 'stdlib splitByLine' do
+  name :split
+  out from: 'output', to: [:add1, 'input']
+  out from: 'output', to: [:add2, 'input']
+end
+
+atom 'stdlib accumAdd' do
+  name :add1
+  out from: 'output', to: [:reduce, 'input']
+end
+
+atom 'stdlib accumAdd' do
+  name :add2
+  out from: 'output', to: [:reduce, 'input']
+end
+
+atom 'stdlib sum' do
+  name :reduce
+end

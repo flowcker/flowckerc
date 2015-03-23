@@ -1,0 +1,32 @@
+
+atom 'stdlib readHttp' do
+  name :readFile
+  config url: 'http://pastebin.com/raw.php?i=qc0z66VP'
+  out from: 'output', to: [:split, 'input']
+end
+
+atom 'stdlib splitByLine' do
+  name :split
+  out from: 'output', to: [:add1, 'input']
+  out from: 'output', to: [:add2, 'input']
+end
+
+atom 'stdlib accumAdd' do
+  name :add1
+  out from: 'output', to: [:reduce, 'input']
+end
+
+atom 'stdlib accumAdd' do
+  name :add2
+  out from: 'output', to: [:reduce, 'input']
+end
+
+atom 'stdlib sum' do
+  name :reduce
+  out from: 'output', to: [:writeFile, 'input']
+end
+
+atom 'stdlib updateRedisKey' do
+  name :writeFile
+  config addr: '192.168.59.103:49153', key: 'output'
+end

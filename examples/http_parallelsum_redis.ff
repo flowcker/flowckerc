@@ -1,0 +1,14 @@
+
+atom 'stdlib readHttp' do
+  name :readFile
+  config url: 'http://pastebin.com/raw.php?i=qc0z66VP'
+  out from: 'output', to: [:sum, 'input']
+end
+
+mix 'parallelsum.ff', :sum
+
+atom 'stdlib updateRedisKey' do
+  name :writeFile
+  config addr: '192.168.59.103:49153', key: 'output'
+  inp to: 'input', from: [:sum, 'output']
+end
